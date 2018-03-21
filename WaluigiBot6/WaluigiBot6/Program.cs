@@ -16,8 +16,10 @@ namespace WaluigiBot6
 {
     class Program
     {
-        public static void Main(String[] args) => new Program().RunBotAsync().GetAwaiter().GetResult();
-
+        public static void Main(String[] args)
+        {
+            new Program().RunBotAsync().GetAwaiter().GetResult();
+        }
 
         private DiscordSocketClient _client;
         private CommandService _commands;
