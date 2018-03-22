@@ -45,14 +45,22 @@ namespace WaluigiBot6.Modules
         [Command("kick"), RequireBotPermission(GuildPermission.KickMembers)]
         public async Task PingAsync(SocketGuildUser user)
         {
+            var builder = new EmbedBuilder();
+
+            builder.WithTitle($"Be Gone Thot {user.Mention}");
+            builder.WithThumbnailUrl("https://media1.tenor.co/images/b261a5d512941e957f1eeb7c1677e547/tenor.gif?itemid=9874995");
+
+            await Context.Channel.SendMessageAsync("", false, builder);
+
+            await Task.Delay(3000);
             await user.KickAsync();
-            await ReplyAsync($"Begone Thot!");
+            
         }
 
         [Command("emoji")]
         public async Task PingAsync()
         {
-
+            
             await ReplyAsync(":rage:");
         }
 
