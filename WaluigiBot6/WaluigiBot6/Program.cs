@@ -10,20 +10,20 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using System.Reflection;
+using Discord.Rest;
+using System.Runtime.Remoting.Contexts;
 //using DiscordSharp;
 
 namespace WaluigiBot6
 {
     class Program
     {
-        public static void Main(String[] args)
-        {
-            new Program().RunBotAsync().GetAwaiter().GetResult();
-        }
+        public static void Main(String[] args) => new Program().RunBotAsync().GetAwaiter().GetResult();
 
-        private DiscordSocketClient _client;
-        private CommandService _commands;
-        private IServiceProvider _services;
+
+        public DiscordSocketClient _client;
+        public CommandService _commands;
+        public IServiceProvider _services;
 
         public async Task RunBotAsync()
         {
@@ -72,16 +72,16 @@ namespace WaluigiBot6
 
             int argPos = 0;
 
-            if (message.HasStringPrefix("tnt!", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))
+            if (message.HasStringPrefix("", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))
             {
                 var context = new SocketCommandContext(_client, message);
 
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
 
                 if (!result.IsSuccess) Console.WriteLine(result.ErrorReason);
+
             }
-
-
         }
+
     }
 }
