@@ -24,9 +24,11 @@ namespace WaluigiBot6
         public DiscordSocketClient _client;
         public CommandService _commands;
         public IServiceProvider _services;
+        private static CommandService commands;
 
         public async Task RunBotAsync()
         {
+      
             _client = new DiscordSocketClient();
             _commands = new CommandService();
 
@@ -39,6 +41,7 @@ namespace WaluigiBot6
 
             //event subscripttion
             _client.Log += Log;
+            _client.UserJoined += AnnounceUserJoined;
 
             await RegisterCommandsAsync();
 
@@ -48,6 +51,14 @@ namespace WaluigiBot6
 
             await Task.Delay(-1);
 
+        }
+
+
+        private async Task AnnounceUserJoined(SocketGuildUser user)
+        {
+            var guild = user.Guild;
+            var channel = guild.DefaultChannel;
+            await channel.SendMessageAsync($"waa off, {user.Mention}");
         }
 
         private Task Log(LogMessage arg)
@@ -72,7 +83,7 @@ namespace WaluigiBot6
 
             int argPos = 0;
 
-            if (message.HasStringPrefix("", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))
+            if (message.HasStringPrefix("!", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))
             {
                 var context = new SocketCommandContext(_client, message);
 
