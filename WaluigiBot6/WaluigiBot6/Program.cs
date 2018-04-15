@@ -83,13 +83,49 @@ namespace WaluigiBot6
 
             int argPos = 0;
 
-            if (message.HasStringPrefix("!", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))
+            if (message.HasStringPrefix("", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))
             {
                 var context = new SocketCommandContext(_client, message);
 
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
 
                 if (!result.IsSuccess) Console.WriteLine(result.ErrorReason);
+                
+                if (message.HasStringPrefix("waa", ref argPos)) 
+                {
+                    await message.DeleteAsync();
+                }
+
+                //await ReplyAsync($":hellagay:");
+                if (message.Channel.Name.Equals("hella-gay"))
+                {
+
+                    if (message.HasStringPrefix("<:hellagay:434842057693986826>", ref argPos)) await message.Channel.SendMessageAsync("<:nou:434842867031212032>");
+                    else if (message.HasStringPrefix("<:nou:434842867031212032>", ref argPos)) await message.Channel.SendMessageAsync("<:mirrorforce:434843712582057984>");
+                    else if (message.HasStringPrefix("<:mirrorforce:434843712582057984>", ref argPos))
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            await message.Channel.SendMessageAsync($"<:waah:434842362896842764>" + " " + "<:waah:434842362896842764>" + " " 
+                                + "<:waah:434842362896842764>" + " " + "<:waah:434842362896842764>" + " " + "<:waah:434842362896842764>" );
+                        }
+                    }
+                    else await message.Channel.SendMessageAsync("<:hellagay:434842057693986826>");
+                    
+                }
+                else if (message.Channel.Name.Equals("☭kommunist-ussr☭"))
+                {
+                    //if (message.HasStringPrefix("i", ref argPos) || message.Content.Contains(" i ") || message.Content.Contains(" I ")
+                    //|| message.Content.Contains("I ") || message.Content.Contains(".we ") || message.Content.Contains(" we ")
+                    // || message.Content.Contains("We ") || message.Content.Contains(".We ")) await message.Channel.SendMessageAsync("We*");
+                    String temp12 = message.Content.Replace("i'm", "we're").Replace("I'm", "We're").Replace("I'M", "WE'RE").Replace("i", "we")
+                        .Replace("I", "We").Replace("my", "our").Replace("My", "Our").Replace("MY", "Our")
+                        .Replace("me", "us").Replace("Me", "Us").Replace("ME", "US");
+                    String temp13 = message.Content.Replace("food", "").Replace("hungry", "");
+                    if (!temp13.Equals(message.Content)) await message.Channel.SendMessageAsync("In to the gulag with you.");
+                    else if (!temp12.Equals(message.Content)) await message.Channel.SendMessageAsync(temp12 + "*");
+                    await message.Channel.SendMessageAsync("<:communism:434847529629253634>");
+                }
 
             }
         }
